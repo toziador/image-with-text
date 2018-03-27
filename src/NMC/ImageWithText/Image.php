@@ -98,14 +98,20 @@ class Image
     }
 
     /**
-     * Save rendered image to output file
+     * Save rendered image to output file or in stream
      * @param string $outputImagePath The path to which the image (with text) will be saved
      * @api
      */
     public function render($outputImagePath)
     {
         $this->drawText();
-        $this->image->save($outputImagePath);
+        
+        // If param is the magic word 'stream' then the image is printed in stream
+        if($outputImagePath != 'stream'){
+        	$this->image->save($outputImagePath);            
+        }else{
+        	echo $this->image->response();
+        }
     }
 
     /**
